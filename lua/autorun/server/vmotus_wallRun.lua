@@ -27,6 +27,39 @@ function wallRun(number, player, frontal)
     end
 end
 
+function wallJump(number, player, frontal)
+    local a = player:EyeAngles()
+    local v = player:GetVelocity()
+    if v.z > -450 then
+        local fa = (frontal and -a:Forward() or a:Forward())
+        if fa.x > 0.5 then
+            fa.x = 1
+        elseif fa.x < -0.5 then
+            fa.x = -1
+        end
+        if fa.y > 0.5 then
+            fa.y = 1
+        elseif fa.y < -0.5 then
+            fa.y = -1
+        end
+        fa.z = 0
+        print(fa)
+        local sv = (fa * 250) + Vector(0, 0, 250 - v.z)
+
+        player:ViewPunch(Angle(-15, 0, 0))
+        player:EmitSound(stepSounds[math.random(#stepSounds)])
+        player:SetVelocity(sv)
+
+        timer.Create(
+            number .. "wjcooldown",
+            0.25,
+            1,
+            function()
+            end
+        )
+    end
+end
+
 hook.Add(
     "Think",
     "vmotus_wrT",
@@ -42,32 +75,53 @@ hook.Add(
             local forwarder = Vector(5, 0, 0)
             forwarder:Rotate(Angle(0, cPlayer:EyeAngles().yaw, 0))
 
-            local collisionFront = util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 60), forwarder * 4, cPlayer)
+            local collisionFront = util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 60), forwarder * 5, cPlayer)
             local collisionRight =
-                util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 28), cPlayer:EyeAngles():Right() * 19, cPlayer)
+                util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 28), cPlayer:EyeAngles():Right() * 23, cPlayer)
             local collisionLeft =
-                util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 28), -cPlayer:EyeAngles():Right() * 19, cPlayer)
+                util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 28), -cPlayer:EyeAngles():Right() * 23, cPlayer)
             local collisionUp = util.QuickTrace(cPlayer:GetPos(), Vector(0, 0, 120), cPlayer)
 
-            if
-                not collisionUp.Hit and cPlayer:KeyDown(IN_FORWARD) and cPlayer:KeyDown(IN_SPEED) and steps > 0 and
-                    not timer.Exists(i .. "wrcooldown")
-             then
+            if not collisionUp.Hit and cPlayer:KeyDown(IN_FORWARD) then
                 local v = cPlayer:GetVelocity()
                 if collisionFront.Hit then
-                    wallRun(i, cPlayer, true)
+                    if not timer.Exists(i .. "wrcooldown") and cPlayer:KeyDown(IN_SPEED) and steps > 0 then
+                        wallRun(i, cPlayer, true)
+                    end
+                    if
+                        not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
+                            steps < 3
+                     then
+                        wallJump(i, cPlayer, true)
+                    end
                 end
                 if
-                    collisionLeft.Hit and cPlayer:KeyDown(IN_MOVELEFT) and
-                        ((v.x > 250 or v.x < -250) or (v.y > 250 or v.y < -250))
+                    collisionLeft.Hit and cPlayer:KeyDown(IN_MOVELEFT) and cPlayer:KeyDown(IN_SPEED) and
+                        ((v.x > 200 or v.x < -200) or (v.y > 200 or v.y < -200))
                  then
-                    wallRun(i, cPlayer, false)
+                    if not timer.Exists(i .. "wrcooldown") and steps > 0 then
+                        wallRun(i, cPlayer, false)
+                    end
+                    if
+                        not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
+                            steps < 3
+                     then
+                        -- wallJump(i, cPlayer, false)
+                    end
                 end
                 if
-                    collisionRight.Hit and cPlayer:KeyDown(IN_MOVERIGHT) and
-                        ((v.x > 250 or v.x < -250) or (v.y > 250 or v.y < -250))
-                then
-                    wallRun(i, cPlayer, false)
+                    collisionRight.Hit and cPlayer:KeyDown(IN_MOVERIGHT) and cPlayer:KeyDown(IN_SPEED) and
+                        ((v.x > 200 or v.x < -200) or (v.y > 200 or v.y < -200))
+                 then
+                    if not timer.Exists(i .. "wrcooldown") and steps > 0 then
+                        wallRun(i, cPlayer, false)
+                    end
+                    if
+                        not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
+                            steps < 3
+                     then
+                        -- wallJump(i, cPlayer, false)
+                    end
                 end
             end
         end
