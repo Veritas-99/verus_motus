@@ -22,7 +22,11 @@ function wallRun(number, player, frontal)
         player:ViewPunch(Angle(-15, 0, 0))
         player:EmitSound(stepSounds[math.random(#stepSounds)])
         player:SetVelocity(
-            Vector(0 - (frontal and v.x * 0.75 or 0), 0 - (frontal and v.y * 0.75 or 0), (frontal and 275 or 250) - v.z)
+            Vector(
+                0 - (frontal and v.x * 0.75 or 0),
+                0 - (frontal and v.y * 0.75 or 0),
+                (frontal and vmotus_wrsf() or vmotus_wrsf() * 0.9091) - v.z
+            )
         )
         steps = steps - 1
 
@@ -63,8 +67,6 @@ function wallJump(number, player, frontal, left)
 
         player:SetVelocity(sv)
         if frontal then
-            local va = Angle(a.x, a.y + 180, a.z)
-            -- player:SetEyeAngles(va)
             notifyClientToFlip(player)
         end
 
@@ -73,7 +75,7 @@ function wallJump(number, player, frontal, left)
             0.25,
             1,
             function()
-                steps = 3
+                steps = vmotus_wjs()
             end
         )
     end
@@ -88,7 +90,7 @@ hook.Add(
             local cPlayer = Players[i]
 
             if cPlayer:IsOnGround() then
-                steps = 3
+                steps = vmotus_wrs()
             end
 
             local forwarder = Vector(5, 0, 0)
@@ -109,7 +111,7 @@ hook.Add(
                     end
                     if
                         not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
-                            steps < 3
+                            steps < vmotus_wrs()
                      then
                         wallJump(i, cPlayer, true)
                     end
@@ -123,7 +125,7 @@ hook.Add(
                     end
                     if
                         not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
-                            steps < 3
+                            steps < vmotus_wrs()
                      then
                         wallJump(i, cPlayer, false, true)
                     end
@@ -137,7 +139,7 @@ hook.Add(
                     end
                     if
                         not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
-                            steps < 3
+                            steps < vmotus_wrs()
                      then
                         wallJump(i, cPlayer, false, false)
                     end

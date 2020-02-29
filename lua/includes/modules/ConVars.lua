@@ -12,6 +12,18 @@ function vmotus_rdr()
     return IntToBool(GetConVar("vmotus_rdr"):GetInt())
 end
 
+function vmotus_wrs()
+    return GetConVar("vmotus_wrs"):GetInt()
+end
+
+function vmotus_wrsf()
+    return GetConVar("vmotus_wrsf"):GetInt()
+end
+
+function vmotus_wjs()
+    return GetConVar("vmotus_wjs"):GetInt()
+end
+
 function vmotus_scream()
     return IntToBool(GetConVar("vmotus_scream"):GetInt())
 end
