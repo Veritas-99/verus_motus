@@ -95,8 +95,8 @@ hook.Add(
 
             if not collisionUp.Hit and cPlayer:KeyDown(IN_FORWARD) then
                 local v = cPlayer:GetVelocity()
-                if collisionFront.Hit and steps > 0 then
-                    if not timer.Exists(i .. "wrcooldown") and cPlayer:KeyDown(IN_SPEED) then
+                if collisionFront.Hit then
+                    if not timer.Exists(i .. "wrcooldown") and cPlayer:KeyDown(IN_SPEED) and steps > 0 then
                         wallRun(i, cPlayer, true)
                     end
                     if
