@@ -1,14 +1,14 @@
 require("convars")
 util.AddNetworkString("vmotus_vroll")
 
-local negateFallDamage = false
-local reduceFallDamage = false
-
 function notifyClientToRoll(player)
     net.Start("vmotus_vroll")
     net.WriteInt(math.Round(player:EyeAngles().p), 16)
     net.Send(player)
 end
+
+local negateFallDamage = false
+local reduceFallDamage = false
 
 hook.Add(
     "OnPlayerHitGround",

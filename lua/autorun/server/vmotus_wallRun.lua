@@ -1,4 +1,11 @@
 require("convars")
+util.AddNetworkString("vmotus_vflip")
+
+function notifyClientToFlip(player)
+    net.Start("vmotus_vflip")
+    net.WriteAngle(player:EyeAngles())
+    net.Send(player)
+end
 
 local steps
 
@@ -57,7 +64,8 @@ function wallJump(number, player, frontal, left)
         player:SetVelocity(sv)
         if frontal then
             local va = Angle(a.x, a.y + 180, a.z)
-            player:SetEyeAngles(va)
+            -- player:SetEyeAngles(va)
+            notifyClientToFlip(player)
         end
 
         timer.Create(
@@ -86,7 +94,7 @@ hook.Add(
             local forwarder = Vector(5, 0, 0)
             forwarder:Rotate(Angle(0, cPlayer:EyeAngles().yaw, 0))
 
-            local collisionFront = util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 60), forwarder * 5, cPlayer)
+            local collisionFront = util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 40), forwarder * 5, cPlayer)
             local collisionRight =
                 util.QuickTrace(cPlayer:GetPos() + Vector(0, 0, 28), cPlayer:EyeAngles():Right() * 23, cPlayer)
             local collisionLeft =

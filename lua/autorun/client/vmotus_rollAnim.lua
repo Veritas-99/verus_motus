@@ -13,7 +13,7 @@ net.Receive(
 
 hook.Add(
     "CalcView",
-    "vmotus_cv",
+    "vmotus_cvroll",
     function(player, origin, angles, fov)
         if not doRoll then
             return
@@ -31,7 +31,7 @@ hook.Add(
 
 hook.Add(
     "CalcViewModelView",
-    "vmotus_cvmc",
+    "vmotus_cvmcroll",
     function(wep, vm, pos_, ang_, pos, ang)
         if not doRoll then
             return
