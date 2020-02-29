@@ -1,4 +1,4 @@
-require("ConVars")
+require("convars")
 util.AddNetworkString("vmotus_vroll")
 
 local negateFallDamage = false
