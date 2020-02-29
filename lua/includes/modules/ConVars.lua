@@ -11,3 +11,30 @@ end
 function vmotus_rdr()
     return IntToBool(GetConVar("vmotus_rdr"):GetInt())
 end
+
+if SERVER then
+    local player_gender = {}
+
+    util.AddNetworkString("vmotus_vg")
+
+    net.Receive(
+        "vmotus_vg",
+        function(len, ply)
+            player_gender[ply] = net.ReadString()
+        end
+    )
+
+    hook.Add(
+        "PlayerDisconnected",
+        "vmotus_pd",
+        function(ply)
+            player_gender[ply] = nil
+        end
+    )
+
+    function vmotus_vg(ply)
+        print(ply)
+        PrintTable(player_gender)
+        return player_gender[ply]
+    end
+end
