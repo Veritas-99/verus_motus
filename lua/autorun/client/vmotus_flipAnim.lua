@@ -24,10 +24,8 @@ hook.Add(
 
         local view = GAMEMODE:CalcView(player, origin, angles, fov)
 
-
         yaw = math.Approach(yaw, ang.y + degree, FrameTime() * 1000)
-        player:ChatPrint(yaw)
-        player:ChatPrint(ang.y)
+
         if yaw == ang.y + degree then
             doFlip = false
             return
