@@ -14,7 +14,9 @@ function wallRun(number, player, frontal)
     if v.z > (frontal and -450 or -100) then
         player:ViewPunch(Angle(-15, 0, 0))
         player:EmitSound(stepSounds[math.random(#stepSounds)])
-        player:SetVelocity(Vector(0 - (frontal and v.x * 0.75 or 0), 0 - (frontal and v.y * 0.75 or 0), (frontal and 275 or 250) - v.z))
+        player:SetVelocity(
+            Vector(0 - (frontal and v.x * 0.75 or 0), 0 - (frontal and v.y * 0.75 or 0), (frontal and 275 or 250) - v.z)
+        )
         steps = steps - 1
 
         timer.Create(
@@ -38,22 +40,16 @@ function wallJump(number, player, frontal, left)
         else
             pv = v:GetNormalized()
             pv.z = 0
-            print("x before:",pv.x)
-            print("y before:",pv.y)
             if left then
-                pv:Rotate(Angle(0,-90,0))
+                pv:Rotate(Angle(0, -90, 0))
             else
-                pv:Rotate(Angle(0,90,0))
+                pv:Rotate(Angle(0, 90, 0))
             end
             pv.x = pv.x - v:GetNormalized().x * 1.25
             pv.y = pv.y - v:GetNormalized().y * 1.25
-            print("x after:",pv.x)
-            print("y after:",pv.y)
         end
 
         local sv = (pv * (frontal and 250 or 150)) + Vector(0, 0, 250 - v.z)
-
-        print("velocity:", pv)
 
         player:ViewPunch(Angle(-10, 0, 0))
         player:EmitSound(stepSounds[math.random(#stepSounds)])
