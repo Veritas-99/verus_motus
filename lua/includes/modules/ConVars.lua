@@ -33,8 +33,6 @@ if SERVER then
     )
 
     function vmotus_vg(ply)
-        print(ply)
-        PrintTable(player_gender)
         return player_gender[ply]
     end
 end
