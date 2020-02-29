@@ -49,18 +49,24 @@ hook.Add(
         if vmotus_rfd() then
             local lSpeed = speed / vmotus_rfdNum()
             if reduceFallDamage and speed < 1000 then
-                player:EmitSound("vo/npc/" .. vmotus_vg(player) .. "/pain03.wav")
+                if vmotus_scream() then
+                    player:EmitSound("vo/npc/" .. vmotus_vg(player) .. "/pain03.wav")
+                end
                 if speed < 900 then
                     return lSpeed / 2
                 else
                     return lSpeed / 1.25
                 end
             else
-                player:EmitSound("vo/npc/" .. vmotus_vg(player) .. "/pain03.wav")
+                if vmotus_scream() then
+                    player:EmitSound("vo/npc/" .. vmotus_vg(player) .. "/pain03.wav")
+                end
                 return lSpeed
             end
         end
-        player:EmitSound("vo/npc/" .. vmotus_vg(player) .. "/pain03.wav")
+        if vmotus_scream() then
+            player:EmitSound("vo/npc/" .. vmotus_vg(player) .. "/pain03.wav")
+        end
         return 10
     end
 )

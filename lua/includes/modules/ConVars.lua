@@ -12,6 +12,10 @@ function vmotus_rdr()
     return IntToBool(GetConVar("vmotus_rdr"):GetInt())
 end
 
+function vmotus_scream()
+    return IntToBool(GetConVar("vmotus_scream"):GetInt())
+end
+
 if SERVER then
     local player_gender = {}
 
