@@ -11,15 +11,15 @@ local stepSounds = {
 
 function wallRun(number, player, frontal)
     local v = player:GetVelocity()
-    if v.z > -450 then
+    if v.z > (frontal and -450 or -100) then
         player:ViewPunch(Angle(-15, 0, 0))
         player:EmitSound(stepSounds[math.random(#stepSounds)])
-        player:SetVelocity(Vector(0 - (frontal and v.x * 0.75 or 0), 0 - (frontal and v.y * 0.75 or 0), 300 - v.z))
+        player:SetVelocity(Vector(0 - (frontal and v.x * 0.75 or 0), 0 - (frontal and v.y * 0.75 or 0), (frontal and 275 or 250) - v.z))
         steps = steps - 1
 
         timer.Create(
             number .. "wrcooldown",
-            0.25,
+            0.3,
             1,
             function()
             end
@@ -27,34 +27,49 @@ function wallRun(number, player, frontal)
     end
 end
 
-function wallJump(number, player, frontal)
+function wallJump(number, player, frontal, left)
     local a = player:EyeAngles()
     local v = player:GetVelocity()
     if v.z > -450 then
-        local fa = (frontal and -a:Forward() or a:Forward())
-        if fa.x > 0.5 then
-            fa.x = 1
-        elseif fa.x < -0.5 then
-            fa.x = -1
+        local pv
+        if frontal then
+            pv = -a:Forward()
+            pv.z = 0
+        else
+            pv = v:GetNormalized()
+            pv.z = 0
+            print("x before:",pv.x)
+            print("y before:",pv.y)
+            if left then
+                pv:Rotate(Angle(0,-90,0))
+            else
+                pv:Rotate(Angle(0,90,0))
+            end
+            pv.x = pv.x - v:GetNormalized().x * 1.25
+            pv.y = pv.y - v:GetNormalized().y * 1.25
+            print("x after:",pv.x)
+            print("y after:",pv.y)
         end
-        if fa.y > 0.5 then
-            fa.y = 1
-        elseif fa.y < -0.5 then
-            fa.y = -1
-        end
-        fa.z = 0
-        print(fa)
-        local sv = (fa * 250) + Vector(0, 0, 250 - v.z)
 
-        player:ViewPunch(Angle(-15, 0, 0))
+        local sv = (pv * (frontal and 250 or 150)) + Vector(0, 0, 250 - v.z)
+
+        print("velocity:", pv)
+
+        player:ViewPunch(Angle(-10, 0, 0))
         player:EmitSound(stepSounds[math.random(#stepSounds)])
+
         player:SetVelocity(sv)
+        if frontal then
+            local va = Angle(a.x, a.y + 180, a.z)
+            player:SetEyeAngles(va)
+        end
 
         timer.Create(
             number .. "wjcooldown",
             0.25,
             1,
             function()
+                steps = 3
             end
         )
     end
@@ -84,8 +99,8 @@ hook.Add(
 
             if not collisionUp.Hit and cPlayer:KeyDown(IN_FORWARD) then
                 local v = cPlayer:GetVelocity()
-                if collisionFront.Hit then
-                    if not timer.Exists(i .. "wrcooldown") and cPlayer:KeyDown(IN_SPEED) and steps > 0 then
+                if collisionFront.Hit and steps > 0 then
+                    if not timer.Exists(i .. "wrcooldown") and cPlayer:KeyDown(IN_SPEED) then
                         wallRun(i, cPlayer, true)
                     end
                     if
@@ -97,7 +112,7 @@ hook.Add(
                 end
                 if
                     collisionLeft.Hit and cPlayer:KeyDown(IN_MOVELEFT) and cPlayer:KeyDown(IN_SPEED) and
-                        ((v.x > 200 or v.x < -200) or (v.y > 200 or v.y < -200))
+                        ((v.x > 150 or v.x < -150) or (v.y > 150 or v.y < -150))
                  then
                     if not timer.Exists(i .. "wrcooldown") and steps > 0 then
                         wallRun(i, cPlayer, false)
@@ -106,12 +121,12 @@ hook.Add(
                         not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
                             steps < 3
                      then
-                        -- wallJump(i, cPlayer, false)
+                        wallJump(i, cPlayer, false, true)
                     end
                 end
                 if
                     collisionRight.Hit and cPlayer:KeyDown(IN_MOVERIGHT) and cPlayer:KeyDown(IN_SPEED) and
-                        ((v.x > 200 or v.x < -200) or (v.y > 200 or v.y < -200))
+                        ((v.x > 150 or v.x < -150) or (v.y > 150 or v.y < -150))
                  then
                     if not timer.Exists(i .. "wrcooldown") and steps > 0 then
                         wallRun(i, cPlayer, false)
@@ -120,7 +135,7 @@ hook.Add(
                         not cPlayer:IsOnGround() and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "wjcooldown") and
                             steps < 3
                      then
-                        -- wallJump(i, cPlayer, false)
+                        wallJump(i, cPlayer, false, false)
                     end
                 end
             end
