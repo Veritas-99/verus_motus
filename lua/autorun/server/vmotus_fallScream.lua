@@ -27,9 +27,9 @@ hook.Add(
                 if zSpeed < -300 then
                     local trace = util.QuickTrace(cPlayer:GetPos(), Vector(0, 0, -10000))
                     local dist = cPlayer:GetPos():DistToSqr(trace.HitPos)
-                    if dist > 570000 then
+                    if dist > 540000 then
                         playSound(i, cPlayer, "vo/npc/" .. vmotus_vg(cPlayer) .. "/no02.wav", 0.75)
-                    elseif dist > 250000 then
+                    elseif dist > 220000 then
                         playSound(i, cPlayer, "vo/npc/" .. vmotus_vg(cPlayer) .. "/uhoh.wav", 0.5)
                     end
                 end
