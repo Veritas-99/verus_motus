@@ -127,36 +127,38 @@ hook.Add(
             local collisionUp = util.QuickTrace(cPlayer:GetPos(), Vector(0, 0, 120), cPlayer)
 
             if not collisionUp.Hit then
-                if cPlayer:KeyDown(IN_USE) and CanGrab(cPlayer) and not grabbing[cPlayer] then
-                    grabbing[cPlayer] = true
-                    cPlayer:EmitSound(Sound("physics/flesh/flesh_impact_hard"..math.random(1, 3)..".wav"), 50)
-                    cPlayer:ViewPunch(Angle(15, 0, 0))
-                    cPlayer:SetLocalVelocity(Vector(0, 0, 0))
-                    cPlayer:SetMoveType(MOVETYPE_NONE)
-                elseif
-                    grabbing[cPlayer] and cPlayer:KeyDown(IN_JUMP) and cPlayer:KeyDown(IN_FORWARD) and
-                        not timer.Exists(i .. "gcooldown")
-                 then
-                    cPlayer:EmitSound(Sound("physics/flesh/flesh_impact_hard"..math.random(1, 3)..".wav"), 50)
-                    cPlayer:ViewPunch(Angle(15, 0, 0))
-                    cPlayer:SetMoveType(MOVETYPE_WALK)
-                    cPlayer:SetVelocity(Vector(0, 0, 325))
-                    timer.Create(
-                        i .. "gcooldown",
-                        1,
-                        1,
-                        function()
-                            grabbing[cPlayer] = nil
-                        end
-                    )
-                elseif grabbing[cPlayer] and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "gcooldown") then
-                    cPlayer:ViewPunch(Angle(15, 0, 0))
-                    cPlayer:SetMoveType(MOVETYPE_WALK)
-                    wallJump(i, cPlayer, true)
-                    grabbing[cPlayer] = nil
-                elseif grabbing[cPlayer] and cPlayer:KeyDown(IN_DUCK) and not timer.Exists(i .. "gcooldown") then
-                    cPlayer:SetMoveType(MOVETYPE_WALK)
-                    grabbing[cPlayer] = nil
+                if vmotus_lg() then
+                    if cPlayer:KeyDown(IN_USE) and CanGrab(cPlayer) and not grabbing[cPlayer] then
+                        grabbing[cPlayer] = true
+                        cPlayer:EmitSound(Sound("physics/flesh/flesh_impact_hard" .. math.random(1, 3) .. ".wav"), 50)
+                        cPlayer:ViewPunch(Angle(15, 0, 0))
+                        cPlayer:SetLocalVelocity(Vector(0, 0, 0))
+                        cPlayer:SetMoveType(MOVETYPE_NONE)
+                    elseif
+                        grabbing[cPlayer] and cPlayer:KeyDown(IN_JUMP) and cPlayer:KeyDown(IN_FORWARD) and
+                            not timer.Exists(i .. "gcooldown")
+                     then
+                        cPlayer:EmitSound(Sound("physics/flesh/flesh_impact_hard" .. math.random(1, 3) .. ".wav"), 50)
+                        cPlayer:ViewPunch(Angle(15, 0, 0))
+                        cPlayer:SetMoveType(MOVETYPE_WALK)
+                        cPlayer:SetVelocity(Vector(0, 0, 325))
+                        timer.Create(
+                            i .. "gcooldown",
+                            1,
+                            1,
+                            function()
+                                grabbing[cPlayer] = nil
+                            end
+                        )
+                    elseif grabbing[cPlayer] and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "gcooldown") then
+                        cPlayer:ViewPunch(Angle(15, 0, 0))
+                        cPlayer:SetMoveType(MOVETYPE_WALK)
+                        wallJump(i, cPlayer, true)
+                        grabbing[cPlayer] = nil
+                    elseif grabbing[cPlayer] and cPlayer:KeyDown(IN_DUCK) and not timer.Exists(i .. "gcooldown") then
+                        cPlayer:SetMoveType(MOVETYPE_WALK)
+                        grabbing[cPlayer] = nil
+                    end
                 end
 
                 if cPlayer:KeyDown(IN_FORWARD) and not grabbing[cPlayer] then

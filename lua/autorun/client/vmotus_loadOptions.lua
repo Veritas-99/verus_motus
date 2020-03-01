@@ -28,6 +28,7 @@ hook.Add(
                 cb_gender:AddChoice("Male", "male01")
                 cb_gender:AddChoice("Female", "female01")
                 panel:AddControl( "Header", { Description = "\nWall Running\n" }  )
+                panel:CheckBox("Ledge Grabbing", "vmotus_lg")
                 panel:NumSlider("Wall Run Steps", "vmotus_wrs", 0, 20, 0)
                 panel:NumSlider("Wall Run Step Force", "vmotus_wrsf", 0, 500, 0)
                 panel:NumSlider("Wall Jump Step Refresh", "vmotus_wjs", 0, 20, 0)
