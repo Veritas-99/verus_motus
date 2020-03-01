@@ -150,7 +150,6 @@ hook.Add(
                 elseif grabbing[cPlayer] and cPlayer:KeyDown(IN_JUMP) and not timer.Exists(i .. "gcooldown") then
                     cPlayer:ViewPunch(Angle(15, 0, 0))
                     cPlayer:SetMoveType(MOVETYPE_WALK)
-                    print(cPlayer)
                     wallJump(i, cPlayer, true)
                     grabbing[cPlayer] = nil
                 elseif grabbing[cPlayer] and cPlayer:KeyDown(IN_DUCK) and not timer.Exists(i .. "gcooldown") then
