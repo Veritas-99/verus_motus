@@ -129,6 +129,7 @@ hook.Add(
             if not collisionUp.Hit then
                 if cPlayer:KeyDown(IN_USE) and CanGrab(cPlayer) and not grabbing[cPlayer] then
                     grabbing[cPlayer] = true
+                    cPlayer:EmitSound(Sound("physics/flesh/flesh_impact_hard"..math.random(1, 3)..".wav"), 50)
                     cPlayer:ViewPunch(Angle(15, 0, 0))
                     cPlayer:SetLocalVelocity(Vector(0, 0, 0))
                     cPlayer:SetMoveType(MOVETYPE_NONE)
@@ -136,6 +137,7 @@ hook.Add(
                     grabbing[cPlayer] and cPlayer:KeyDown(IN_JUMP) and cPlayer:KeyDown(IN_FORWARD) and
                         not timer.Exists(i .. "gcooldown")
                  then
+                    cPlayer:EmitSound(Sound("physics/flesh/flesh_impact_hard"..math.random(1, 3)..".wav"), 50)
                     cPlayer:ViewPunch(Angle(15, 0, 0))
                     cPlayer:SetMoveType(MOVETYPE_WALK)
                     cPlayer:SetVelocity(Vector(0, 0, 325))
