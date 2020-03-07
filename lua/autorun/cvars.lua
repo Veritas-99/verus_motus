@@ -1,20 +1,3 @@
-//ConCommands & ConVars
-concommand.Add("+v_motus", function(ply)
-	ply.v_motus = true
-end)
-
-concommand.Add("-v_motus", function(ply)
-	ply.v_motus = false
-end)
-
-CreateConVar(v_motus_serverside, "1")
-//
-CreateClientConVar(v_motus_steps_l, "3", true, true)
-CreateConVar(v_motus_steps_g, "3")
-//
-CreateClientConVar(v_motus_step_force_l, "275", true, true)
-CreateConVar(v_motus_step_force_g, "275")
-//
 //ConVar accessibility
 v_motus_serverside = "v_motus_serverside"
 
@@ -43,6 +26,23 @@ function v_motus_step_force(ply)
 		return cvarGetInt(v_motus_step_force_l, ply)
 	end
 end
+
+//ConCommands & ConVars
+concommand.Add("+v_motus", function(ply)
+	ply.v_motus = true
+end)
+
+concommand.Add("-v_motus", function(ply)
+	ply.v_motus = false
+end)
+
+CreateConVar(v_motus_serverside, "1")
+//
+CreateClientConVar(v_motus_steps_l, "3", true, true)
+CreateConVar(v_motus_steps_g, "3")
+//
+CreateClientConVar(v_motus_step_force_l, "275", true, true)
+CreateConVar(v_motus_step_force_g, "275")
 
 //ConVar utilities
 function cvarGetBool(var, ply)
