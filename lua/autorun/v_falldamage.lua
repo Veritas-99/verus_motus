@@ -21,6 +21,8 @@ if SERVER then
 						return fallDamage * 0.8
 					elseif speed > 700 then
 						return fallDamage * 0.5
+					elseif speed > 650 then
+						return fallDamage * 0.25
 					else
 						return 0
 					end
@@ -35,6 +37,8 @@ if SERVER then
 						return 10 * 0.8
 					elseif speed > 700 then
 						return 10 * 0.5
+					elseif speed > 650 then
+						return 10 * 0.25
 					else
 						return 0
 					end
