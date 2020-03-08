@@ -4,8 +4,11 @@ if SERVER then
 	hook.Add("PlayerPostThink", "v_motus_ppt_falldamage", function(ply)
 		if v_motus_falldamage(ply) then
 			local tr = util.QuickTrace(ply:GetPos(), Vector(0, 0, -10000), ply)
-			local newRelativeSpeed = ply:GetVelocity().z - tr.Entity:GetVelocity().z
-			ply.v_motus_relativeSpeed = newRelativeSpeed != 0 && newRelativeSpeed || relativeSpeed
+
+			if tr.Entity then
+				local newRelativeSpeed = ply:GetVelocity().z - tr.Entity:GetVelocity().z
+				ply.v_motus_relativeSpeed = newRelativeSpeed != 0 && newRelativeSpeed || relativeSpeed
+			end
 		end
 	end)
 
