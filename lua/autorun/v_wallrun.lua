@@ -3,26 +3,26 @@ include("sounds.lua")
 
 if CLIENT then
 	//180 degree turn
-	local turnData
+	local v_motus_turnData
 
 	net.Receive("v_motus_turn", function()
-		turnData = net.ReadTable()
+		v_motus_turnData = net.ReadTable()
 	end)
 
-	hook.Add("CalcView", "v_cv", function(ply, src, ang, fov)
-		if !turnData then return end
-		if !turnData["turn"] then return end
+	hook.Add("CalcView", "v_motus_cv_turn", function(ply, src, ang, fov)
+		if !v_motus_turnData then return end
+		if !v_motus_turnData["turn"] then return end
 		local view = GAMEMODE:CalcView(ply, src, ang, fov)
-		turnData["yaw"] = math.Approach(turnData["yaw"], turnData["ang"].y + turnData["deg"], FrameTime() * 1000)
+		v_motus_turnData["yaw"] = math.Approach(v_motus_turnData["yaw"], v_motus_turnData["ang"].y + v_motus_turnData["deg"], FrameTime() * 1000)
 
-		if turnData["yaw"] == turnData["ang"].y + turnData["deg"] then
-			turnData["turn"] = false
+		if v_motus_turnData["yaw"] == v_motus_turnData["ang"].y + v_motus_turnData["deg"] then
+			v_motus_turnData["turn"] = false
 
 			return
 		end
 
 		local eang = ply:EyeAngles()
-		ply:SetEyeAngles(Angle(eang.x, turnData["yaw"], eang.z))
+		ply:SetEyeAngles(Angle(eang.x, v_motus_turnData["yaw"], eang.z))
 
 		return view
 	end)
@@ -31,11 +31,11 @@ end
 if SERVER then
 	util.AddNetworkString("v_motus_turn")
 
-	hook.Add("PlayerPostThink", "v_ppt", function(ply)
-		if ply:IsOnGround() then
-			ply.v_motus_steps = v_motus_steps(ply)
-		end
+	hook.Add("OnPlayerHitGround", "v_motus_ophg_wallrun", function(ply, inWater, onFloater, speed)
+		ply.v_motus_steps = v_motus_steps(ply)
+	end)
 
+	hook.Add("PlayerPostThink", "v_motus_ppt_wallrun", function(ply)
 		//Enter parkour mode
 		if ply.v_motus then
 			local epos = ply:GetPos()
@@ -92,7 +92,7 @@ if SERVER then
 		local directions = {185, -185}
 		local eang = ply:EyeAngles()
 
-		local turnData = {
+		local v_motus_turnData = {
 			deg = directions[math.random(#directions)],
 			ang = eang,
 			yaw = eang.y,
@@ -100,7 +100,7 @@ if SERVER then
 		}
 
 		net.Start("v_motus_turn")
-		net.WriteTable(turnData)
+		net.WriteTable(v_motus_turnData)
 		net.Send(ply)
 		//
 		createWallJumpCoolDown(coolDown, ply)
