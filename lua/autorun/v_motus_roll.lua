@@ -1,4 +1,5 @@
 include("v_motus_cvars.lua")
+include("v_motus_sounds.lua")
 
 if CLIENT then
 	local v_motus_rollData
@@ -38,6 +39,7 @@ if SERVER then
 		if v_motus_roll(ply) then
 			if (!inWater || onFloater) && ply:KeyDown(IN_DUCK) && speed >= 530 then
 				ply.v_motus_roll = true
+				ply:EmitSound(gearSound[math.random(#gearSound)], 50, 100, 1)
 				local eangp = math.Round(ply:EyeAngles().pitch)
 
 				v_motus_rollData = {

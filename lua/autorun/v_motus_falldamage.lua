@@ -14,54 +14,47 @@ if SERVER then
 	end)
 
 	hook.Add("GetFallDamage", "v_motus_gfd", function(ply, speed)
+		local mult
+		local returnVal
+
 		if speed > 530 then
-			local returnVal
+			if speed > 900 then
+				mult = 0.85
+			elseif speed > 800 then
+				mult = 0.8
+			elseif speed > 700 then
+				mult = 0.5
+			elseif speed > 650 then
+				mult = 0.25
+			else
+				mult = 0
+			end
 
 			if v_motus_falldamage(ply) then
 				local fallDamage = (-1 * ply.v_motus_relativeSpeed / v_motus_falldamagedivider(ply))
 
 				if ply.v_motus_roll then
-					if speed > 900 then
-						returnVal = fallDamage * 0.85
-					elseif speed > 800 then
-						returnVal = fallDamage * 0.8
-					elseif speed > 700 then
-						returnVal = fallDamage * 0.5
-					elseif speed > 650 then
-						returnVal = fallDamage * 0.25
-					else
-						returnVal = 0
-					end
+					returnVal = fallDamage * mult
 				else
 					returnVal = fallDamage
 				end
 			else
 				if ply.v_motus_roll then
-					if speed > 900 then
-						returnVal = 10 * 0.85
-					elseif speed > 800 then
-						returnVal = 10 * 0.8
-					elseif speed > 700 then
-						returnVal = 10 * 0.5
-					elseif speed > 650 then
-						returnVal = 10 * 0.25
-					else
-						returnVal = 0
-					end
+					returnVal = 10 * mult
 				else
 					returnVal = 10
 				end
 			end
-
-			if returnVal > 0 && v_motus_voices() then
-				if v_motus_gender(ply) == "male" then
-					ply:EmitSound(painSoundM[math.random(#painSoundM)], 50, 100, 1)
-				elseif v_motus_gender(ply) == "female" then
-					ply:EmitSound(painSoundF[math.random(#painSoundF)], 50, 100, 1)
-				end
-			end
-
-			return returnVal
 		end
+
+		if !ply.v_motus_roll && v_motus_voices() then
+			if v_motus_gender(ply) == "male" then
+				ply:EmitSound(painSoundM[math.random(#painSoundM)], 50, 100, 1)
+			elseif v_motus_gender(ply) == "female" then
+				ply:EmitSound(painSoundF[math.random(#painSoundF)], 50, 100, 1)
+			end
+		end
+
+		return returnVal
 	end)
 end
