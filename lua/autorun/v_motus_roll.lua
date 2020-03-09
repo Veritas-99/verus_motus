@@ -1,4 +1,4 @@
-include("cvars.lua")
+include("v_motus_cvars.lua")
 
 if CLIENT then
 	local v_motus_rollData

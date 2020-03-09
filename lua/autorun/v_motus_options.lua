@@ -1,4 +1,4 @@
-include("cvars.lua")
+include("v_motus_cvars.lua")
 
 if CLIENT then
 	hook.Add("PopulateToolMenu", "v_motus_ptm", function()
@@ -48,6 +48,11 @@ if CLIENT then
 			v_motus_serverside_dcbl:SetText("Use server side variables")
 			v_motus_serverside_dcbl:SetConVar(v_motus_serverside_g)
 			panel:AddItem(v_motus_serverside_dcbl)
+			//
+			local v_motus_voices_dcbl = vgui.Create("DCheckBoxLabel", panel)
+			v_motus_voices_dcbl:SetText("Voices")
+			v_motus_voices_dcbl:SetConVar(v_motus_voices_g)
+			panel:AddItem(v_motus_voices_dcbl)
 			//
 			local v_motus_roll = vgui.Create("DCheckBoxLabel", panel)
 			v_motus_roll:SetText("Rolling")

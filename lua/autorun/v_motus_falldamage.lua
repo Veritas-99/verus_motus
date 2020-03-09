@@ -1,5 +1,5 @@
-include("cvars.lua")
-include("sounds.lua")
+include("v_motus_cvars.lua")
+include("v_motus_sounds.lua")
 
 if SERVER then
 	hook.Add("PlayerPostThink", "v_motus_ppt_falldamage", function(ply)
@@ -53,9 +53,7 @@ if SERVER then
 				end
 			end
 
-			if returnVal > 0 then
-				ply:ChatPrint(v_motus_gender(ply))
-
+			if returnVal > 0 && v_motus_voices() then
 				if v_motus_gender(ply) == "male" then
 					ply:EmitSound(painSoundM[math.random(#painSoundM)], 50, 100, 1)
 				elseif v_motus_gender(ply) == "female" then

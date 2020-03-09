@@ -11,6 +11,12 @@ function v_motus_gender(ply)
 	return cvarGetString(v_motus_gender_l, ply)
 end
 
+v_motus_voices_g = "v_motus_voices_g"
+
+function v_motus_voices()
+	return cvarGetBool(v_motus_voices_g)
+end
+
 v_motus_roll_l = "v_motus_roll_l"
 v_motus_roll_g = "v_motus_roll_g"
 
@@ -78,6 +84,8 @@ end)
 CreateConVar(v_motus_serverside_g, 1)
 //
 CreateClientConVar(v_motus_gender_l, "male", true, true)
+//
+CreateConVar(v_motus_voices_g, 1)
 //
 CreateClientConVar(v_motus_roll_l, 1, true, true)
 CreateConVar(v_motus_roll_g, 1)

@@ -1,5 +1,5 @@
-include("cvars.lua")
-include("sounds.lua")
+include("v_motus_cvars.lua")
+include("v_motus_sounds.lua")
 
 if CLIENT then
 	//180 degree turn
