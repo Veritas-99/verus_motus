@@ -3,7 +3,15 @@ include("v_motus_cvars.lua")
 if CLIENT then
 	hook.Add("PopulateToolMenu", "v_motus_ptm", function()
 		spawnmenu.AddToolMenuOption("Options", "VerusMotus", "verusmotus_l", "Client Settings", nil, nil, function(panel)
-			local v_motus_gender_cb = panel:ComboBox("Gender", v_motus_gender_l)
+			local v_motus_key_label = vgui.Create("DLabel", panel)
+			v_motus_key_label:SetText("verus motus key:")
+			panel:AddItem(v_motus_key_label)
+			//
+			local v_motus_key_binder = vgui.Create("DBinder", panel)
+			v_motus_key_binder:SetConVar(v_motus_key_l)
+			panel:AddItem(v_motus_key_binder)
+			//
+			v_motus_gender_cb = panel:ComboBox("Gender", v_motus_gender_l)
 			v_motus_gender_cb:AddChoice("Male", "male")
 			v_motus_gender_cb:AddChoice("Female", "female")
 			v_motus_gender_cb:AddChoice("None", nil)

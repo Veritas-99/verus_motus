@@ -5,6 +5,12 @@ function v_motus_serverside()
 	return cvarGetBool(v_motus_serverside_g)
 end
 
+v_motus_key_l = "v_motus_key_l"
+
+function v_motus_key(ply)
+	return cvarGetInt(v_motus_key_l, ply)
+end
+
 v_motus_gender_l = "v_motus_gender_l"
 
 function v_motus_gender(ply)
@@ -72,16 +78,10 @@ function v_motus_step_force(ply)
 	end
 end
 
-//ConCommands & ConVars
-concommand.Add("+v_motus", function(ply)
-	ply.v_motus = true
-end)
-
-concommand.Add("-v_motus", function(ply)
-	ply.v_motus = false
-end)
-
+//ConCommands
 CreateConVar(v_motus_serverside_g, 1)
+//
+CreateClientConVar(v_motus_key_l, KEY_LSHIFT, true, true)
 //
 CreateClientConVar(v_motus_gender_l, "male", true, true)
 //
