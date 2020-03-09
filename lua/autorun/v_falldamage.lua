@@ -1,4 +1,5 @@
 include("cvars.lua")
+include("sounds.lua")
 
 if SERVER then
 	hook.Add("PlayerPostThink", "v_motus_ppt_falldamage", function(ply)
@@ -14,41 +15,55 @@ if SERVER then
 
 	hook.Add("GetFallDamage", "v_motus_gfd", function(ply, speed)
 		if speed > 530 then
+			local returnVal
+
 			if v_motus_falldamage(ply) then
 				local fallDamage = (-1 * ply.v_motus_relativeSpeed / v_motus_falldamagedivider(ply))
 
 				if ply.v_motus_roll then
 					if speed > 900 then
-						return fallDamage * 0.85
+						returnVal = fallDamage * 0.85
 					elseif speed > 800 then
-						return fallDamage * 0.8
+						returnVal = fallDamage * 0.8
 					elseif speed > 700 then
-						return fallDamage * 0.5
+						returnVal = fallDamage * 0.5
 					elseif speed > 650 then
-						return fallDamage * 0.25
+						returnVal = fallDamage * 0.25
 					else
-						return 0
+						returnVal = 0
 					end
 				else
-					return fallDamage
+					returnVal = fallDamage
 				end
 			else
 				if ply.v_motus_roll then
 					if speed > 900 then
-						return 10 * 0.85
+						returnVal = 10 * 0.85
 					elseif speed > 800 then
-						return 10 * 0.8
+						returnVal = 10 * 0.8
 					elseif speed > 700 then
-						return 10 * 0.5
+						returnVal = 10 * 0.5
 					elseif speed > 650 then
-						return 10 * 0.25
+						returnVal = 10 * 0.25
 					else
-						return 0
+						returnVal = 0
 					end
 				else
-					return 10
+					returnVal = 10
 				end
 			end
+
+			if returnVal > 0 then
+				ply:ChatPrint(v_motus_gender(ply))
+
+				if v_motus_gender(ply) == "male" then
+					ply:EmitSound(painSoundM[math.random(#painSoundM)], 50, 100, 1)
+				elseif v_motus_gender(ply) == "female" then
+					ply:EmitSound(painSoundF[math.random(#painSoundF)], 50, 100, 1)
+				end
+			end
+
+			return returnVal
 		end
 	end)
 end

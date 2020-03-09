@@ -3,6 +3,11 @@ include("cvars.lua")
 if CLIENT then
 	hook.Add("PopulateToolMenu", "v_motus_ptm", function()
 		spawnmenu.AddToolMenuOption("Options", "VerusMotus", "verusmotus_l", "Client Settings", nil, nil, function(panel)
+			local v_motus_gender_cb = panel:ComboBox("Gender", v_motus_gender_l)
+			v_motus_gender_cb:AddChoice("Male", "male")
+			v_motus_gender_cb:AddChoice("Female", "female")
+			v_motus_gender_cb:AddChoice("None", nil)
+			//
 			local v_motus_roll = vgui.Create("DCheckBoxLabel", panel)
 			v_motus_roll:SetText("Rolling")
 			v_motus_roll:SetConVar(v_motus_roll_l)
@@ -41,7 +46,7 @@ if CLIENT then
 		spawnmenu.AddToolMenuOption("Options", "VerusMotus", "verusmotus_g", "Server Settings", nil, nil, function(panel)
 			local v_motus_serverside_dcbl = vgui.Create("DCheckBoxLabel", panel)
 			v_motus_serverside_dcbl:SetText("Use server side variables")
-			v_motus_serverside_dcbl:SetConVar(v_motus_serverside)
+			v_motus_serverside_dcbl:SetConVar(v_motus_serverside_g)
 			panel:AddItem(v_motus_serverside_dcbl)
 			//
 			local v_motus_roll = vgui.Create("DCheckBoxLabel", panel)

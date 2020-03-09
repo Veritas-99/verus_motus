@@ -1,15 +1,21 @@
 //ConVar accessibility
-v_motus_serverside = "v_motus_serverside"
+v_motus_serverside_g = "v_motus_serverside_g"
 
-function serverside()
-	return cvarGetBool(v_motus_serverside)
+function v_motus_serverside()
+	return cvarGetBool(v_motus_serverside_g)
+end
+
+v_motus_gender_l = "v_motus_gender_l"
+
+function v_motus_gender(ply)
+	return cvarGetString(v_motus_gender_l, ply)
 end
 
 v_motus_roll_l = "v_motus_roll_l"
 v_motus_roll_g = "v_motus_roll_g"
 
 function v_motus_roll(ply)
-	if serverside() then
+	if v_motus_serverside() then
 		return cvarGetBool(v_motus_roll_g)
 	else
 		return cvarGetBool(v_motus_roll_l, ply)
@@ -20,7 +26,7 @@ v_motus_falldamage_l = "v_motus_falldamage_l"
 v_motus_falldamage_g = "v_motus_falldamage_g"
 
 function v_motus_falldamage(ply)
-	if serverside() then
+	if v_motus_serverside() then
 		return cvarGetBool(v_motus_falldamage_g)
 	else
 		return cvarGetBool(v_motus_falldamage_l, ply)
@@ -31,7 +37,7 @@ v_motus_falldamagedivider_l = "v_motus_falldamagedivider_l"
 v_motus_falldamagedivider_g = "v_motus_falldamagedivider_g"
 
 function v_motus_falldamagedivider(ply)
-	if serverside() then
+	if v_motus_serverside() then
 		return cvarGetFloat(v_motus_falldamagedivider_g)
 	else
 		return cvarGetFloat(v_motus_falldamagedivider_l, ply)
@@ -42,7 +48,7 @@ v_motus_steps_l = "v_motus_steps_l"
 v_motus_steps_g = "v_motus_steps_g"
 
 function v_motus_steps(ply)
-	if serverside() then
+	if v_motus_serverside() then
 		return cvarGetInt(v_motus_steps_g)
 	else
 		return cvarGetInt(v_motus_steps_l, ply)
@@ -53,7 +59,7 @@ v_motus_step_force_l = "v_motus_step_force_l"
 v_motus_step_force_g = "v_motus_step_force_g"
 
 function v_motus_step_force(ply)
-	if serverside() then
+	if v_motus_serverside() then
 		return cvarGetInt(v_motus_step_force_g)
 	else
 		return cvarGetInt(v_motus_step_force_l, ply)
@@ -69,7 +75,9 @@ concommand.Add("-v_motus", function(ply)
 	ply.v_motus = false
 end)
 
-CreateConVar(v_motus_serverside, 1)
+CreateConVar(v_motus_serverside_g, 1)
+//
+CreateClientConVar(v_motus_gender_l, "male", true, true)
 //
 CreateClientConVar(v_motus_roll_l, 1, true, true)
 CreateConVar(v_motus_roll_g, 1)
@@ -129,6 +137,20 @@ function cvarGetInt(var, ply)
 	else
 		if ConVarExists(var) then
 			return GetConVar(var):GetInt()
+		else
+			return nil
+		end
+	end
+end
+
+function cvarGetString(var, ply)
+	if ply != nil then
+		local val = ply:GetInfo(var)
+
+		return val
+	else
+		if ConVarExists(var) then
+			return GetConVar(var):GetString()
 		else
 			return nil
 		end
