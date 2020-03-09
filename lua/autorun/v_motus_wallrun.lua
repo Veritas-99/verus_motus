@@ -43,7 +43,7 @@ if SERVER then
 			local frwdr = Vector(5, 0, 0)
 			frwdr:Rotate(Angle(0, eang.yaw, 0))
 			local plyv = ply:GetVelocity()
-			local frontTrace = util.QuickTrace(epos + Vector(0, 0, 20), frwdr * 5, ply)
+			local frontTrace = util.QuickTrace(epos + Vector(0, 0, 20), frwdr * 3.5, ply)
 			local ceilingTrace = util.QuickTrace(epos, Vector(0, 0, 100), ply)
 
 			//Vertical segment
