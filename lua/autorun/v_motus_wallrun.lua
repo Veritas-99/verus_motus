@@ -163,7 +163,7 @@ if SERVER then
 
 	function createWallJumpCoolDown(coolDown, ply)
 		timer.Create(coolDown, 0.25, 1, function()
-			ply.v_motus_steps = v_motus_steps(ply)
+			ply.v_motus_steps = v_motus_stepsafterwj(ply)
 		end)
 	end
 end

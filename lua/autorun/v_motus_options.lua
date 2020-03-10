@@ -49,6 +49,14 @@ if CLIENT then
 			v_motus_step_force:SetDecimals(0)
 			v_motus_step_force:SetConVar(v_motus_step_force_l)
 			panel:AddItem(v_motus_step_force)
+			//
+			local v_motus_stepsafterwj = vgui.Create("DNumSlider", panel)
+			v_motus_stepsafterwj:SetText("Wall Jump Step Refresh")
+			v_motus_stepsafterwj:SetMin(0)
+			v_motus_stepsafterwj:SetMax(20)
+			v_motus_stepsafterwj:SetDecimals(0)
+			v_motus_stepsafterwj:SetConVar(v_motus_stepsafterwj_l)
+			panel:AddItem(v_motus_stepsafterwj)
 		end)
 
 		spawnmenu.AddToolMenuOption("Options", "VerusMotus", "verusmotus_g", "Server Settings", nil, nil, function(panel)
@@ -95,6 +103,14 @@ if CLIENT then
 			v_motus_step_force:SetDecimals(0)
 			v_motus_step_force:SetConVar(v_motus_step_force_g)
 			panel:AddItem(v_motus_step_force)
+			//
+			local v_motus_stepsafterwj = vgui.Create("DNumSlider", panel)
+			v_motus_stepsafterwj:SetText("Wall Jump Step Refresh")
+			v_motus_stepsafterwj:SetMin(0)
+			v_motus_stepsafterwj:SetMax(20)
+			v_motus_stepsafterwj:SetDecimals(0)
+			v_motus_stepsafterwj:SetConVar(v_motus_stepsafterwj_g)
+			panel:AddItem(v_motus_stepsafterwj)
 		end)
 	end)
 end

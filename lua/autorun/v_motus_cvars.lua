@@ -78,6 +78,17 @@ function v_motus_step_force(ply)
 	end
 end
 
+v_motus_stepsafterwj_l = "v_motus_stepsafterwj_l"
+v_motus_stepsafterwj_g = "v_motus_stepsafterwj_g"
+
+function v_motus_stepsafterwj(ply)
+	if v_motus_serverside() then
+		return cvarGetInt(v_motus_stepsafterwj_g)
+	else
+		return cvarGetInt(v_motus_stepsafterwj_l, ply)
+	end
+end
+
 //ConCommands
 CreateConVar(v_motus_serverside_g, 1)
 //
@@ -101,6 +112,9 @@ CreateConVar(v_motus_steps_g, 3)
 //
 CreateClientConVar(v_motus_step_force_l, 275, true, true)
 CreateConVar(v_motus_step_force_g, 275)
+//
+CreateClientConVar(v_motus_stepsafterwj_l, 3, true, true)
+CreateConVar(v_motus_stepsafterwj_g, 3)
 
 //ConVar utilities
 function cvarGetBool(var, ply)
