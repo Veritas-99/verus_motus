@@ -84,7 +84,7 @@ if SERVER then
 		ply:ViewPunch(Angle(-15, 0, 0))
 		ply:EmitSound(stepsounds[math.random(#stepsounds)])
 		//
-		ply:SetVelocity(Vector(0 - vel.x * 0.75, 0 - vel.y * 0.75, v_motus_step_force(ply) - (vel.z >= 0 && vel.z || 0)))
+		ply:SetVelocity(Vector(0 - vel.x * 0.75, 0 - vel.y * 0.75, v_motus_step_force(ply) - (vel.z > -200 && vel.z || 0)))
 		//
 		createWallRunCoolDown(coolDown)
 	end
@@ -96,7 +96,7 @@ if SERVER then
 		ply:ViewPunch(Angle(-15, 0, 0))
 		ply:EmitSound(stepsounds[math.random(#stepsounds)])
 		//
-		ply:SetVelocity(Vector(0, 0, (v_motus_step_force(ply) * 0.9091) - (vel.z >= 0 && vel.z || 0)))
+		ply:SetVelocity(Vector(0, 0, (v_motus_step_force(ply) * 0.9091) - (vel.z > -200 && vel.z || 0)))
 		//
 		createWallRunCoolDown(coolDown)
 	end
