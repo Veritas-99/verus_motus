@@ -1,9 +1,9 @@
 # verus motus
 A parkour-esque addon for Garry's Mod
 
-New as of 11/03/2020:
-You can now bind your own key to trigger the parkour mode!
-Standard is left shift
+New as of 11/03/2020:  
+You can now bind your own key to trigger the parkour mode!  
+Standard is left shift  
 
 |Input|Result|
 |:-:|:-:|
