@@ -41,7 +41,7 @@ if SERVER then
 			local rightTrace = util.QuickTrace(ppos + Vector(0, 0, 28), eang:Right() * 23, ply)
 
 			if !ceilingTrace.Hit then
-				local wallJumpCooldown = ply:AccountID() && ply:AccountID() .. "wrjp" || "wrjp"
+				local wallJumpCooldown = ply:AccountID() && ply:AccountID() .. "wjcd" || "wjcd"
 
 				//Vertical segment
 				if frontTrace.Hit && ply:KeyDown(IN_JUMP) && ply.v_motus_steps < v_motus_steps(ply) && !timer.Exists(wallJumpCooldown) then
