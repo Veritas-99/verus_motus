@@ -1,5 +1,6 @@
 {
 	"title"		:	"Verus Motus 1.1 [Parkour]",
+	"type"		:	"Addon",
 	"tags"		:	[ "fun" ],
 	"ignore"	:
 	[
