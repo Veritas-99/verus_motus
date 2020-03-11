@@ -1,9 +1,10 @@
 {
-	"title"		:	"Verus Motus [Parkour]",
+	"title"		:	"Verus Motus 1.1 [Parkour]",
 	"tags"		:	[ "fun" ],
 	"ignore"	:
 	[
 		"*.md",
-		"*git*"
+		"*git*",
+		"*.txt"
 	]
 }
