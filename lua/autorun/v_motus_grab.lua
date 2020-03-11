@@ -4,30 +4,32 @@ include("v_motus_walljump.lua")
 
 if SERVER then
 	hook.Add("PlayerPostThink", "v_motus_ppt_grab", function(ply)
-		local grabCooldown = ply:AccountID() && ply:AccountID() .. "gcd" || "gcd"
+		if v_motus_grab(ply) then
+			grabCooldown = ply:AccountID() && ply:AccountID() .. "gcd" || "gcd"
 
-		if ply.v_motus && ply:KeyDown(IN_USE) && CanGrab(ply) && !ply.v_motus_grabbing then
-			ply.v_motus_grabbing = true
-			ply:EmitSound(Sound(gearSound[math.random(#gearSound)], 50))
-			ply:ViewPunch(Angle(15, 0, 0))
-			ply:SetLocalVelocity(Vector(0, 0, 0))
-			ply:SetMoveType(MOVETYPE_NONE)
-		elseif ply.v_motus_grabbing && ply:KeyDown(IN_FORWARD) && ply:KeyDown(IN_JUMP) && !timer.Exists(grabCooldown) then
-			ply:EmitSound(Sound(gearSound[math.random(#gearSound)], 50))
-			ply:ViewPunch(Angle(15, 0, 0))
-			ply:SetMoveType(MOVETYPE_WALK)
-			ply:SetVelocity(Vector(0, 0, 325))
-			//
-			createGrabCoolDown(grabCooldown, ply)
-		elseif ply.v_motus_grabbing && ply:KeyDown(IN_JUMP) && !timer.Exists(grabCooldown) then
-			local wallJumpCooldown = ply:AccountID() && ply:AccountID() .. "wjcd" || "wjcd"
-			ply:ViewPunch(Angle(15, 0, 0))
-			ply:SetMoveType(MOVETYPE_WALK)
-			halfRotationWallJump(ply, wallJumpCooldown)
-			ply.v_motus_grabbing = nil
-		elseif ply.v_motus_grabbing && ply:KeyDown(IN_DUCK) && !timer.Exists(grabCooldown) then
-			ply:SetMoveType(MOVETYPE_WALK)
-			ply.v_motus_grabbing = nil
+			if ply.v_motus && !ply:IsOnGround() && ply:KeyDown(IN_USE) && CanGrab(ply) && !ply.v_motus_grabbing then
+				ply.v_motus_grabbing = true
+				ply:EmitSound(Sound(gearSound[math.random(#gearSound)], 50))
+				ply:ViewPunch(Angle(15, 0, 0))
+				ply:SetLocalVelocity(Vector(0, 0, 0))
+				ply:SetMoveType(MOVETYPE_NONE)
+			elseif ply.v_motus_grabbing && ply:KeyDown(IN_FORWARD) && ply:KeyDown(IN_JUMP) && !timer.Exists(grabCooldown) then
+				ply:EmitSound(Sound(gearSound[math.random(#gearSound)], 50))
+				ply:ViewPunch(Angle(15, 0, 0))
+				ply:SetMoveType(MOVETYPE_WALK)
+				ply:SetVelocity(Vector(0, 0, 325))
+				//
+				createGrabCoolDown(grabCooldown, ply)
+			elseif ply.v_motus_grabbing && ply:KeyDown(IN_JUMP) && !timer.Exists(grabCooldown) then
+				local wallJumpCooldown = ply:AccountID() && ply:AccountID() .. "wjcd" || "wjcd"
+				ply:ViewPunch(Angle(15, 0, 0))
+				ply:SetMoveType(MOVETYPE_WALK)
+				halfRotationWallJump(ply, wallJumpCooldown)
+				ply.v_motus_grabbing = nil
+			elseif ply.v_motus_grabbing && ply:KeyDown(IN_DUCK) && !timer.Exists(grabCooldown) then
+				ply:SetMoveType(MOVETYPE_WALK)
+				ply.v_motus_grabbing = nil
+			end
 		end
 	end)
 

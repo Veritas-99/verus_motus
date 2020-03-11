@@ -21,6 +21,16 @@ if CLIENT then
 			v_motus_roll:SetConVar(v_motus_roll_l)
 			panel:AddItem(v_motus_roll)
 			//
+			local v_motus_grab = vgui.Create("DCheckBoxLabel", panel)
+			v_motus_grab:SetText("Grabbing")
+			v_motus_grab:SetConVar(v_motus_grab_l)
+			panel:AddItem(v_motus_grab)
+			//
+			local v_motus_walljump = vgui.Create("DCheckBoxLabel", panel)
+			v_motus_walljump:SetText("Wall Jumping")
+			v_motus_walljump:SetConVar(v_motus_walljump_l)
+			panel:AddItem(v_motus_walljump)
+			//
 			local v_motus_falldamage = vgui.Create("DCheckBoxLabel", panel)
 			v_motus_falldamage:SetText("Realistic Fall Damage")
 			v_motus_falldamage:SetConVar(v_motus_falldamage_l)
@@ -74,6 +84,16 @@ if CLIENT then
 			v_motus_roll:SetText("Rolling")
 			v_motus_roll:SetConVar(v_motus_roll_g)
 			panel:AddItem(v_motus_roll)
+			//
+			local v_motus_grab = vgui.Create("DCheckBoxLabel", panel)
+			v_motus_grab:SetText("Grabbing")
+			v_motus_grab:SetConVar(v_motus_grab_g)
+			panel:AddItem(v_motus_grab)
+			//
+			local v_motus_walljump = vgui.Create("DCheckBoxLabel", panel)
+			v_motus_walljump:SetText("Wall Jumping")
+			v_motus_walljump:SetConVar(v_motus_walljump_g)
+			panel:AddItem(v_motus_walljump)
 			//
 			local v_motus_falldamage = vgui.Create("DCheckBoxLabel", panel)
 			v_motus_falldamage:SetText("Realistic Fall Damage")

@@ -34,6 +34,28 @@ function v_motus_roll(ply)
 	end
 end
 
+v_motus_grab_l = "v_motus_grab_l"
+v_motus_grab_g = "v_motus_grab_g"
+
+function v_motus_grab(ply)
+	if v_motus_serverside() then
+		return cvarGetBool(v_motus_grab_g)
+	else
+		return cvarGetBool(v_motus_grab_l, ply)
+	end
+end
+
+v_motus_walljump_l = "v_motus_walljump_l"
+v_motus_walljump_g = "v_motus_walljump_g"
+
+function v_motus_walljump(ply)
+	if v_motus_serverside() then
+		return cvarGetBool(v_motus_walljump_g)
+	else
+		return cvarGetBool(v_motus_walljump_l, ply)
+	end
+end
+
 v_motus_falldamage_l = "v_motus_falldamage_l"
 v_motus_falldamage_g = "v_motus_falldamage_g"
 
@@ -100,6 +122,12 @@ CreateConVar(v_motus_voices_g, 1)
 //
 CreateClientConVar(v_motus_roll_l, 1, true, true)
 CreateConVar(v_motus_roll_g, 1)
+//
+CreateClientConVar(v_motus_grab_l, 1, true, true)
+CreateConVar(v_motus_grab_g, 1)
+//
+CreateClientConVar(v_motus_walljump_l, 1, true, true)
+CreateConVar(v_motus_walljump_g, 1)
 //
 CreateClientConVar(v_motus_falldamage_l, 1, true, true)
 CreateConVar(v_motus_falldamage_g, 1)

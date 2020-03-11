@@ -30,7 +30,7 @@ end
 
 if SERVER then
 	hook.Add("PlayerPostThink", "v_motus_ppt_walljump", function(ply)
-		if ply.v_motus then
+		if v_motus_walljump(ply) && ply.v_motus then
 			local ppos = ply:GetPos()
 			local eang = ply:EyeAngles()
 			local frwdr = Vector(5, 0, 0)

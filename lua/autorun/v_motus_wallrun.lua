@@ -9,7 +9,7 @@ if SERVER then
 	end)
 
 	hook.Add("PlayerPostThink", "v_motus_ppt_wallrun", function(ply)
-		if ply.v_motus then
+		if v_motus_steps(ply) > 0 && ply.v_motus then
 			local plyv = ply:GetVelocity()
 			local ppos = ply:GetPos()
 			local eang = ply:EyeAngles()
