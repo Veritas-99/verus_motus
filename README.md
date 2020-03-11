@@ -4,7 +4,7 @@ A parkour-esque addon for Garry's Mod
 New as of 11/03/2020:  
 You can now bind your own key to trigger the parkour mode!  
 Standard is left shift  
-
+***
 |Input|Result|
 |:-:|:-:|
 |forward + v_motus_key|vertical wall run|
